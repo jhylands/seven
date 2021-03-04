@@ -1,10 +1,10 @@
 from collections import namedtuple
 
-thinker = namedtuple(["focus", "source", "source_comparison", "target_comparison", "target", "relation", "relation_comparison"])
+thinker = namedtuple("Thinker", ["focus", "source", "source_comparison", "target_comparison", "target", "relation", "relation_comparison"])
 
-rdf = namedtuple(["source", "relation", "target"])
+rdf = namedtuple("RDF", ["source", "relation", "target"])
 
-def thinkmaker(s=None, l=None, j=None, f=None, d=None, k=None):
+def thinkmaker(s="", l="", j="", f="", d="", k=""):
     """
     s     l
       d 
