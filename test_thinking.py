@@ -12,11 +12,31 @@ def test_thinkmaker():
 def test_get_thought(thinker):
     for i in range(1, 7):
         assert thinker[i] is not None
+
+@pytest.mark.parametrize("thinker", set_of_thoughts())
+def test_set_thought(thinker):
+    for i in range(1, 7):
+        thought = Thought()
+        thinker[i] = thought
+        assert thinker[i] == thought
     
 @pytest.mark.parametrize("thinker", set_of_thoughts())
-@pytest.mark.skip("pass")
 def test_rm_thought(thinker):
     for i in range(1, 7):
         thinker_ = copy(thinker)
-        thinker_ = thinker.rm(i)
-        assert thinker_[i] == NonThought()
+        thinker_.rm(i)
+        assert isinstance(thinker_[i], NonThought)
+
+@pytest.mark.parametrize("thinker", set_of_thoughts())
+def test_mv_thought(thinker):
+    for i in range(1, 7):
+        for j in range(1, 7):
+            thinker_ = copy(thinker)
+            thought = Thought()
+            thinker_[i] = thought
+            thinker_.mv(i, j)
+            assert thinker_[j] == thought
+# Not sure what is going on here
+#            print(thinker_[i])
+#            assert thinker_[i] == thought
+#            assert isinstance(thinker_[i], Thought) or thinker_[i] == thought

@@ -3,7 +3,7 @@ from enum import Enum
 
 class Thought:
     def __repr__(self):
-        return self.name
+        return "Thought"
 
 class NonThought(Thought):
     def __eq__(self, other):
@@ -18,7 +18,7 @@ class NonThought(Thought):
     # Some kind of singleton pattern needed so there is only one way to not think
     def __repr__(self):
         #overwrite the parent 
-        return ""
+        return "NonThought"
 
 class ThoughtPosition(Enum):
     FOCUS = 0
@@ -48,22 +48,23 @@ class Thinker:
         return Thinker.think_type(NonThought(), s, l , j, f, d, k)
 
     def rm(self, index):
-        thought[index] = NonThought()
+        self[index] = NonThought()
 
     def mv(self, source, destination):
         inflight = self[source]
-        self[desintation] = inflight
         self[source] = NonThought()
+        self[destination] = inflight
 
     def __getitem__(self, index):
         if isinstance(index, ThoughtPosition):
-            index = int(index)
+            index = index.value
         thoughts = list(self.thinker)
         return thoughts[index]
         
-    def __set__(self, index, value):
+    def __setitem__(self, index, value):
         if isinstance(index, ThoughtPosition):
-            index = int(index)
+            index = index.value
+        thoughts = list(self.thinker)
         thoughts[index] = value
         self.thinker = Thinker.think_type(*thoughts)
 
