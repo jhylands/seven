@@ -5,6 +5,7 @@ class unique_element:
         self.occurrences = occurrences
 
 def perm_unique(elements):
+    # Warning output order not deterministic
     eset=set(elements)
     listunique = [unique_element(i,elements.count(i)) for i in eset]
     u=len(elements)
@@ -21,10 +22,3 @@ def perm_unique_helper(listunique,result_list,d):
                 for g in  perm_unique_helper(listunique,result_list,d-1):
                     yield g
                 i.occurrences+=1
-
-
-for i in range(1, 7):
-    print("# " , i)
-    print("|".join(map(str, range(1, 7))))
-    for comb in perm_unique("*"*i + " "*(6-i)):
-        print("|".join(comb))
