@@ -1,4 +1,7 @@
+from thinking import ThoughtPosition
 import re
+
+thought_names = [e.name for e in list(ThoughtPosition)]
 """
 One issue we are having here is that we are having to define a whole language
 a small language but a whole language all the same.
@@ -25,6 +28,17 @@ class InputHandler:
         def rm_function(thinker):
             thinker.rm(index)
         return rm_function
+
+    @staticmethod
+    def to_position(index):
+        try:
+            return ThoughtPosition(int(index))
+        except ValueError:
+            if index.upper() in thought_names:
+                return getattr(ThoughtPosition, index.upper()) 
+            else:
+                raise Exception("Index could not be produced for value {}".format(index))
+        
             
 
     def parse(self):
@@ -35,14 +49,14 @@ class InputHandler:
         # source > source_comparison
         mv = re.match(r"mv (\d|\w+) (\d|\w+)", self.command) or re.match(r"(\d|\w+)\s?>\s?(\d|\w+)", self.command)
         if mv:
-            source = mv.group(1)
-            destination = mv.group(2)
+            source = self.to_position(mv.group(1))
+            destination = self.to_position(mv.group(2))
             return self.mv(source, destination)
         
 
         rm = re.match(r"rm (\d|\w+)", self.command)
         if rm:
-            index = rm.group(1)
+            index = self.to_position(rm.group(1))
             return self.rm(index)
         if self.command in ["cmp", "="]:
             raise Exception("Unimplemented")

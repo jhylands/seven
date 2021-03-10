@@ -1,6 +1,7 @@
 import pytest
 from mock import MagicMock
 from input_handler import InputHandler
+from thinking import ThoughtPosition
 
 
 """
@@ -23,8 +24,9 @@ from input_handler import InputHandler
 ("source > source_comparison", 1, 2),
 ])
 def test_input_handler_mv(command, arg1, arg2):
+    arg1 = ThoughtPosition(arg1)
+    arg2 = ThoughtPosition(arg2)
     mock_thinker = MagicMock()
-    
     handled_input = InputHandler(command)
     handled_input.parse()(mock_thinker)
     mock_thinker.mv.assert_called_with(arg1, arg2)
@@ -32,7 +34,8 @@ def test_input_handler_mv(command, arg1, arg2):
 @pytest.mark.parametrize("command, arg", [
 ("rm 1", 1),
 ])
-def test_input_handler_mv(command, arg):
+def test_input_handler_rm(command, arg):
+    arg = ThoughtPosition(arg)
     mock_thinker = MagicMock()
     
     handled_input = InputHandler(command)
