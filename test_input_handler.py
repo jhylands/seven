@@ -1,7 +1,7 @@
 import pytest
 from mock import MagicMock
 from input_handler import InputHandler
-from thinking import ThoughtPosition
+from thinking import ThoughtPosition, Thought
 
 
 """
@@ -41,3 +41,15 @@ def test_input_handler_rm(command, arg):
     handled_input = InputHandler(command)
     handled_input.parse()(mock_thinker)
     mock_thinker.rm.assert_called_with(arg)
+
+@pytest.mark.parametrize("command, position, representation", [
+("mk 1 house", 1, "house"),
+("mk 2 house", 2, "house"),
+])
+def test_input_handler_mk(command, position, representation):
+    position = ThoughtPosition(position)
+    mock_thinker = MagicMock()
+    handled_input = InputHandler(command)
+    handled_input.parse()(mock_thinker)
+    # Could do with some stricter requirements here
+    mock_thinker.__setitem__.assert_called()

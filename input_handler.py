@@ -1,4 +1,4 @@
-from thinking import ThoughtPosition
+from thinking import ThoughtPosition, Thought
 import re
 
 thought_names = [e.name for e in list(ThoughtPosition)]
@@ -38,8 +38,13 @@ class InputHandler:
                 return getattr(ThoughtPosition, index.upper()) 
             else:
                 raise Exception("Index could not be produced for value {}".format(index))
-        
-            
+
+
+    @staticmethod
+    def mk(location, representation):
+        def mk_function(thinker):
+            thinker[location] = Thought(representation)
+        return mk_function
 
     def parse(self):
         #mv 1, 2
@@ -60,6 +65,12 @@ class InputHandler:
             return self.rm(index)
         if self.command in ["cmp", "="]:
             raise Exception("Unimplemented")
+
+        mk = re.match(r"mk (\d|\w+) (.*)", self.command)
+        if mk:
+            location = self.to_position(mk.group(1))
+            representation = mk.group(2)
+            return self.mk(location, representation)
 
         focus = re.match(r"(\d|\w+)", self.command)
         if focus:

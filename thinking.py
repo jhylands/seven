@@ -2,10 +2,17 @@ from collections import namedtuple
 from enum import Enum
 
 class Thought:
+    def __init__(self, representation="Thought"):
+        self.representation = representation
     def __repr__(self):
-        return "Thought"
+        return self.representation
 
 class NonThought(Thought):
+    # Some kind of singleton pattern needed so there is only one way to not think
+
+    def __init__(self):
+        self.representation = "NonThought"
+
     def __eq__(self, other):
         if isinstance(other, NonThought):
             return True
@@ -15,10 +22,6 @@ class NonThought(Thought):
             return False
             raise Exception("Not comparable types! {} {}".format(type(self), type(other)))
 
-    # Some kind of singleton pattern needed so there is only one way to not think
-    def __repr__(self):
-        #overwrite the parent 
-        return "NonThought"
 
 class ThoughtPosition(Enum):
     FOCUS = 0

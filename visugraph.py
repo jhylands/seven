@@ -1,4 +1,4 @@
-from seven import thinker
+from thinking import Thinker
 def print_graph(thinker, width=40):
     # type: (thinker)->str
     acc = []
