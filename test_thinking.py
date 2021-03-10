@@ -28,6 +28,13 @@ def test_rm_thought(thinker):
         assert isinstance(thinker_[i], NonThought)
 
 @pytest.mark.parametrize("thinker", set_of_thoughts())
+def test_mk_thought(thinker):
+    for i in range(1, 7):
+        thinker_ = copy(thinker)
+        thinker_.mk(i, "my thought")
+        assert thinker_[i].representation == "my thought"
+
+@pytest.mark.parametrize("thinker", set_of_thoughts())
 def test_mv_thought(thinker):
     for i in range(1, 7):
         for j in range(1, 7):

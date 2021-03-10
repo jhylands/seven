@@ -58,7 +58,7 @@ class Thinker:
         self[source] = NonThought()
         self[destination] = inflight
 
-    def mk(self, representation):
+    def mk(self, location, representation):
         self[location] = Thought(representation)
 
     def cp(self, source, destination):

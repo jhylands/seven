@@ -53,6 +53,7 @@ class InputHandler:
         return cp_function
 
     def parse(self):
+        #This should be moved to a register based code
         #mv 1, 2
         #mv source source_comparison
 
@@ -84,8 +85,16 @@ class InputHandler:
             representation = mk.group(2)
             return self.mk(location, representation)
 
+
+        if self.command == "help":
+            print("Need to think of a good way to implement this but you can currently use mv, mk, cp, rm")
+            return lambda x:x
+
+
         focus = re.match(r"(\d|\w+)", self.command)
         if focus:
+            # The regex for this is perhaps a little too general 
             raise Exception("Unimplemented")
+
         raise Exception("Not a valid command")
 
