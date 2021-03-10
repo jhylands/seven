@@ -74,13 +74,14 @@ class Thinker:
     def print_graph(self, width=40):
         # type: (thinker)->str
         acc = []
-        source = self[ThoughtPosition.SOURCE]
-        source_comparison = self[ThoughtPosition.SOURCE_COMPARISON]
+        source = str(self[ThoughtPosition.SOURCE])
+        source_comparison = str(self[ThoughtPosition.SOURCE_COMPARISON])
         acc.append(source + " " * (width- len(source) - len(source_comparison)) + source_comparison)
-        acc.append(self[ThoughtPosition.RELATION])
-        acc.append(" " * (width-len(self[ThoughtPosition.RELATION_COMPARISON])) + self[ThoughtPosition.RELATION_COMPARISON])
-        target = self[ThoughtPosition.TARGET]
-        target_comparison = self[ThoughtPosition.TARGET_COMPARISON]
+        acc.append(str(self[ThoughtPosition.RELATION]))
+        relation_comparison = str(self[ThoughtPosition.RELATION_COMPARISON])
+        acc.append(" " * (width-len(relation_comparison)) + relation_comparison)
+        target = str(self[ThoughtPosition.TARGET])
+        target_comparison = str(self[ThoughtPosition.TARGET_COMPARISON])
         acc.append(target + " " * (width- len(target) - len(target_comparison)) + target_comparison)
         return "\n".join(acc)
 
