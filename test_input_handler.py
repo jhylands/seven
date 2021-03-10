@@ -52,4 +52,18 @@ def test_input_handler_mk(command, position, representation):
     handled_input = InputHandler(command)
     handled_input.parse()(mock_thinker)
     # Could do with some stricter requirements here
-    mock_thinker.__setitem__.assert_called()
+    mock_thinker.mk.assert_called_with(position, representation)
+
+
+@pytest.mark.parametrize("command, arg1, arg2", [
+# cp examples
+("cp 1 2", 1, 2),
+("cp source source_comparison", 1, 2),
+])
+def test_input_handler_cp(command, arg1, arg2):
+    arg1 = ThoughtPosition(arg1)
+    arg2 = ThoughtPosition(arg2)
+    mock_thinker = MagicMock()
+    handled_input = InputHandler(command)
+    handled_input.parse()(mock_thinker)
+    mock_thinker.cp.assert_called_with(arg1, arg2)

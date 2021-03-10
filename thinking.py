@@ -58,6 +58,13 @@ class Thinker:
         self[source] = NonThought()
         self[destination] = inflight
 
+    def mk(self, representation):
+        self[location] = Thought(representation)
+
+    def cp(self, source, destination):
+        cp = self[source]
+        self[destination] = cp
+
     def __getitem__(self, index):
         if isinstance(index, ThoughtPosition):
             index = index.value

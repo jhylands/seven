@@ -43,8 +43,14 @@ class InputHandler:
     @staticmethod
     def mk(location, representation):
         def mk_function(thinker):
-            thinker[location] = Thought(representation)
+            thinker.mk(location, representation)
         return mk_function
+
+    @staticmethod
+    def cp(source, destination):
+        def cp_function(thinker):
+            thinker.cp(source, destination)
+        return cp_function
 
     def parse(self):
         #mv 1, 2
@@ -57,6 +63,12 @@ class InputHandler:
             source = self.to_position(mv.group(1))
             destination = self.to_position(mv.group(2))
             return self.mv(source, destination)
+
+        cp = re.match(r"cp (\d|\w+) (\d|\w+)", self.command)
+        if cp:
+            source = self.to_position(cp.group(1))
+            destination = self.to_position(cp.group(2))
+            return self.cp(source, destination)
         
 
         rm = re.match(r"rm (\d|\w+)", self.command)
