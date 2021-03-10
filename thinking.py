@@ -87,5 +87,3 @@ class Thinker:
 
     def __repr__(self):
         return self.print_graph()
-
-rdf = namedtuple("RDF", ["source", "relation", "target"])
