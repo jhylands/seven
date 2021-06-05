@@ -2,19 +2,23 @@ from input_handler import InputHandler
 from thinking import Thinker
 from collections import namedtuple
 
-class knowledge:
-    rdf = namedtuple("RDF", ["source", "relation", "target"])
-    def __init__(self):
+
+class Mind:
+    def __init__(self, thinker, knowledge):
+        self.thinker = thinker
+        self.knowledge = knowledge
+
+class Knowledge:
+    rdf = namedtuple("rdf", ["source", "relation", "target"])
+    def __init__(self, dropout=0):
         self.bank = []
 
     def match(self, pattern):
-        # The idea here is that we are abstracting away from 
+        # The idea here is that we are abstracting away from
         # how we are storing the knowledge and instead simply
         # accessing whatever underlying data there is
         pass
 
-    
-        
 
 def main():
     """
@@ -34,8 +38,9 @@ def main():
         else:
             handler = InputHandler(command)
             handler.parse()(thinker)
-            
+
     print("Bye")
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()

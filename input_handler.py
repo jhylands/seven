@@ -70,7 +70,6 @@ class InputHandler:
             source = self.to_position(cp.group(1))
             destination = self.to_position(cp.group(2))
             return self.cp(source, destination)
-        
 
         rm = re.match(r"rm (\d|\w+)", self.command)
         if rm:
@@ -85,6 +84,30 @@ class InputHandler:
             representation = mk.group(2)
             return self.mk(location, representation)
 
+        swp = re.match(r"swp (\d|\w+) (\d|\w+)")
+        if swp:
+            source = self.to_position(swp.group(1))
+            destination = self.to_position(swp.group(2))
+            return self.swp(source, destination)
+
+        imp = re.match(r"imp (\d|\w+|\(\)) (\d|\w+|\(\)) (\d|\w+|\(\))", self.command)
+        if imp:
+            a = imp.group(1)
+            r = imp.group(2)
+            b = imp.group(3)
+            return self.imp(a, r, b)
+
+        abstract = re.match(r"abstract (\d|\w+|\(\)) (\d|\w+|\(\)) (\d|\w+|\(\))", self.command)
+        if abstract:
+            a = abstract.group(1)
+            r = abstract.group(2)
+            b = abstract.group(3)
+            return self.abstract(a, r, b)
+
+        versant = re.match(r"versant (\d|\w+)", self.command)
+        if versant:
+            arb = self.to_position(versant.group(1))
+            return self.versant(arb)
 
         if self.command == "help":
             print("Need to think of a good way to implement this but you can currently use mv, mk, cp, rm")
@@ -97,4 +120,3 @@ class InputHandler:
             raise Exception("Unimplemented")
 
         raise Exception("Not a valid command")
-

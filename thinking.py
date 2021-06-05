@@ -41,7 +41,7 @@ class Thinker:
 
     @staticmethod
     def thinkmaker(s=NonThought(), l=NonThought(), j=NonThought(), f=NonThought(), d=NonThought(), k=NonThought()):
-        # type: (Thought, Thought, Thought, Thought, Thought, Thought) -> thinker
+        # type: (Thought, Thought, Thought, Thought, Thought, Thought) -> Thinker.think_type
         """
         s     l
           d 
@@ -58,12 +58,27 @@ class Thinker:
         self[source] = NonThought()
         self[destination] = inflight
 
+    def swp(self, source, destination):
+        inflight = self[source]
+        self[source] = self[destination]
+        self[destination] = inflight
+
+    def imp(self, a, r, b):
+        pass
+
+    def abstract(self, a, r,b ):
+        pass
+
+    def verstant(self, arb):
+        pass
+
     def mk(self, location, representation):
         self[location] = Thought(representation)
 
     def cp(self, source, destination):
         cp = self[source]
         self[destination] = cp
+
 
     def __getitem__(self, index):
         if isinstance(index, ThoughtPosition):
@@ -82,7 +97,7 @@ class Thinker:
         pass
 
     def print_graph(self, width=40):
-        # type: (thinker)->str
+        # type: (Thinker, int)->str
         acc = []
         source = str(self[ThoughtPosition.SOURCE])
         source_comparison = str(self[ThoughtPosition.SOURCE_COMPARISON])
